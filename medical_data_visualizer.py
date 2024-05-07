@@ -14,11 +14,16 @@ df.loc[df['calc_BMI'] > 25, 'overweight'] = 1
 df.loc[df['calc_BMI'] <= 25, 'overweight'] = 0
 df = df.drop('calc_BMI', axis = 'columns')  # Una vez que usé la columna 'calc_BMI' para calcular el 'overweight' puedo descatarla
 
+
+
 # Normalize data by making 0 always good and 1 always bad. If the value of 'cholesterol' or 'gluc' is 1, make the value 0. If the value is more than 1, make the value 1.
 df.loc[df['cholesterol'] <= 1, 'cholesterol'] = 0
 df.loc[df['cholesterol'] > 1, 'cholesterol'] = 1
 df.loc[df['gluc'] <= 1, 'gluc'] = 0
 df.loc[df['gluc'] > 1, 'gluc'] = 1
+
+
+
 
 # Draw Categorical Plot
 def draw_cat_plot():
@@ -50,6 +55,7 @@ def draw_cat_plot():
 def draw_heat_map():
     # Clean the data
     df_heat = df.loc[(df['ap_lo'] <= df['ap_hi']) & (df['height'] >= df['height'].quantile(0.025)) & (df['height'] <= df['height'].quantile(0.975)) & (df['weight'] >= df['weight'].quantile(0.025)) & (df['weight'] <= df['weight'].quantile(0.975))]
+
 
     # Calculate the correlation matrix
     corr = df_heat.corr()
